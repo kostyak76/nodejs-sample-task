@@ -2,7 +2,8 @@ var express = require('express'),
     async = require('async'),
     Search = require('./book/book-search.js').Search,
     DataProvider = require('./book/book-data-provider.js').BookProvider,
-    LOG = require('./lib/log.js');
+    LOG = require('./lib/log.js'),
+    validator = require('./lib/validator');
 
 function Application() {
     this.app = express();
@@ -70,6 +71,7 @@ Application.prototype.authInit = function (cb) {
 Application.prototype.mountAPI = function (cb) {
     var BookRestApi = require('./book/book-rest-api.js').BookRestApi;
     var bookRestApi = new BookRestApi();
+    var bookValidationSchemas = require('./book/book-validation-schemas');
 
     //protect with auth
     if(this.protectWithAuth){
@@ -77,10 +79,18 @@ Application.prototype.mountAPI = function (cb) {
     }
 
     // mounting REST endpoints. All the other urls would be handled by static (coming from public folder).
-    this.app.get('/rest/allBooks', bookRestApi.findAllBooks);
-    this.app.post('/rest/newBook', bookRestApi.newBook);
-    this.app.get('/rest/search', bookRestApi.searchForBooks);
-    this.app.post('/rest/update', bookRestApi.update);
+    this.app.get('/rest/allBooks',
+        validator.getMiddleware(bookValidationSchemas.findAllBooks),
+        bookRestApi.findAllBooks);
+    this.app.post('/rest/newBook',
+        validator.getMiddleware(bookValidationSchemas.newBook),
+        bookRestApi.newBook);
+    this.app.get('/rest/search',
+        validator.getMiddleware(bookValidationSchemas.searchForBooks),
+        bookRestApi.searchForBooks);
+    this.app.post('/rest/update',
+        validator.getMiddleware(bookValidationSchemas.update),
+        bookRestApi.update);
     cb();
 };
 
