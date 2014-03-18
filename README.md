@@ -32,7 +32,7 @@ Then, carry on to building application. First, run
 This will install the dependencies. Then,
 
 ```
-node server.js
+npm start
 ```
 
 Which runs the server. On the command line where you ran the node, you will observe the notice with the URL the app is
