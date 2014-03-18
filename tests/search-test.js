@@ -27,7 +27,7 @@ describe("ElasticSearchClient Cluster apis", function () {
             var query = "test";
             searchProvider.search(query, {}, function (error, data) {
                 data = JSON.parse(data);
-                expect('data').to.exist;
+                expect(data).to.exist;
                 done();
             });
         });
@@ -35,7 +35,7 @@ describe("ElasticSearchClient Cluster apis", function () {
         it('should be update test record ', function (done) {
             searchProvider.update({Tags: ["testTags"], _id: "indexId"}, function (error, data) {
                 data = JSON.parse(data);
-                expect('data').to.exist;
+                expect(data).to.exist;
                 //data.ok.should.be.true;
                 done();
             });
