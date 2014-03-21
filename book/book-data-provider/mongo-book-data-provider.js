@@ -5,9 +5,9 @@ var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
-var LOG = require('../lib/log.js')
+var LOG = require('../../lib/log.js')
 
-var config = require("./../config.json");
+var config = require("./../../config.json");
 
 
 /**

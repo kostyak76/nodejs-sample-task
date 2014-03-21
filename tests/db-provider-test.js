@@ -1,4 +1,4 @@
-var BookProvider = require('../book/book-data-provider.js').BookProvider;
+var BookProvider = require('../book/book-data-provider').BookProvider;
 var should = require("chai");
 var bookProvider = BookProvider;
 var LOG = require('../lib/log.js');

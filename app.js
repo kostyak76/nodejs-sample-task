@@ -1,7 +1,7 @@
 var express = require('express'),
     async = require('async'),
     Search = require('./book/book-search.js').Search,
-    DataProvider = require('./book/book-data-provider.js').BookProvider,
+    DataProvider = require('./book/book-data-provider').BookProvider,
     LOG = require('./lib/log.js');
 
 function Application() {
