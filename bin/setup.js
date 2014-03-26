@@ -74,8 +74,9 @@ async.series([
     Search.setupIndex.bind(Search),
 
     function(cb){
-        user.question("Do you need to setup test data? (if 'no' print any...)", function (answer) {
-            if (answer.toLowerCase() === "y") {
+        user.question("Do you need to setup test data[yes/no]?", function (answer) {
+            var _answer = answer.toLowerCase();
+            if (_answer === "y" || _answer === "yes") {
                 setup(cb);
             } else {
                 cb();

@@ -1,3 +1,6 @@
+/**
+ * dependencies
+ */
 var BookProvider = require('./book-data-provider.js').BookProvider,
     Search = require('./book-search.js').Search,
     LOG = require('../lib/log.js'),

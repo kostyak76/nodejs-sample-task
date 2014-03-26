@@ -1,3 +1,6 @@
+/**
+ * dependencies
+ */
 var ElasticSearchClient = require('elasticsearchclient'),
     util = require('util'),
     LOG = require('../lib/log.js'),
@@ -6,13 +9,14 @@ var ElasticSearchClient = require('elasticsearchclient'),
 /**
  * Search api provider for books.
  *
- * @constructor default
+ * @constructor
  */
 Search = function () {
 };
 
 /**
  * Names used as elasticSearch parameters
+ *
  * @type {{INDEX: string, TYPE: string}}
  */
 var NAMES = {
@@ -22,7 +26,8 @@ var NAMES = {
 
 /**
  * method to map book into search format
- * @param book
+ *
+ * @param {Object} book Book object
  * @returns {{name: *, text: *, id: *}}
  */
 function mapBookToSearchFormat(book) {
@@ -35,7 +40,10 @@ function mapBookToSearchFormat(book) {
 }
 
 /**
- * It changes Search to initial state
+ * init Search
+ * - it makes connection with elastic server
+ *
+ * @this {Search}
  * @param {Function} cb Callback function
  */
 Search.prototype.init = function (cb) {
@@ -67,9 +75,11 @@ Search.prototype.init = function (cb) {
 };
 
 /**
+ * update index with new book object
  *
- * @param {bookModel} book
- * @param {Function} cb Callback
+ * @this {Search}
+ * @param {bookModel} book Book to put into search index
+ * @param {Function} cb Callback function
  */
 Search.prototype.index = function (book, cb) {
 
@@ -86,10 +96,12 @@ Search.prototype.index = function (book, cb) {
 };
 
 /**
+ * search by query specified
  *
- * @param {String} query
+ * @this {Search}
+ * @param {String} query Query to find books
  * @param {Object} options
- * @param {Function} cb Callback
+ * @param {Function} cb Callback funciton
  */
 Search.prototype.search = function (query, options, cb) {
     //create search queryObj
@@ -112,9 +124,11 @@ Search.prototype.search = function (query, options, cb) {
 };
 
 /**
+ * update book indexes
  *
- * @param book
- * @param {Function} cb Callback
+ * @this {Search}
+ * @param {bookModel} book Book to update
+ * @param {Function} cb Callback function
  */
 Search.prototype.update = function (book, cb) {
     this.elasticSearchClient
@@ -129,7 +143,9 @@ Search.prototype.update = function (book, cb) {
 };
 
 /**
- * It drops all books from the search
+ * drop all books from the search
+ *
+ * @this {Search}
  * @param {Function} cb Callback function
  */
 Search.prototype.dropAll = function (cb) {
@@ -149,7 +165,10 @@ Search.prototype.dropAll = function (cb) {
 
 /**
  * setup index and mapping
- * @param {Function} cb Callback
+ * it uses check path if index is not defined yet
+ *
+ * @this {Search}
+ * @param {Function} cb Callback function
  */
 Search.prototype.setupIndex = function (cb) {
     var self = this;
