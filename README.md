@@ -6,10 +6,10 @@ Sample task for nodejs, extjs, mongodb, elasticSearch. The app is ready to be de
 cloud hosting, however may also be easily ran locally.
 
 Created and maintained by Logicify [http://logicify.com](http://logicify.com). We use it also as a kickstarter
-app when we need to have a typical one started. It is released under MIT, and really not a rocket science - please
+app when we need to have a typical one started. It is released under MIT, and really is not a rocket science - please
 feel free to fork it and use. Pull requests with improvements and new features are also welcome.
 
-You can see the app instance on [http://http://nodejs-sample-task.logicify.com/](http://nodejs-sample-task.logicify.com/)
+You can see the app instance at [http://http://nodejs-sample-task.logicify.com/](http://nodejs-sample-task.logicify.com/)
 
 # Content
 - [nodejs-sample-task](#nodejs-sample-task)
@@ -34,7 +34,7 @@ You can see the app instance on [http://http://nodejs-sample-task.logicify.com/]
  * Elasticsearch (last version)
  * Node v0.10 with npm
 
- Details about installation of these can be found on [Prerequisites] page
+ Details about installation of these can be found in [Prerequisites](#prerequisites) section
 
 ## Building and installing
 Just make sure mongodb and ellasticsearch services are up and running. 
@@ -68,11 +68,11 @@ from within the project directory. This should result in the tests running and p
 
 
 ## Features list
-We have a lot to show in our sample project. Below please find list of features you may probably be interested in.
+We have a lot to show in our sample project. Below please find a list of features you may probably be interested in.
 
 ### express.js
 
-All this application is based on using [express.js]https://github.com/visionmedia/express) library. This library suits our aim fine and it is easy to setup. So not much to talk, just check out our code.
+All this application is based on [express.js](https://github.com/visionmedia/express) library. This library suits our aim fine and it is easy to setup. So not much to talk, just check out our code.
 
 Related code parts:
 
@@ -81,7 +81,7 @@ Related code parts:
 
 ### mongodb
 
-It is very powerful document database. You can read about mongo by [link](https://www.mongodb.org/) in more detail. We use mongo to store our book objects as a json-based documents.
+It is very powerful document database. You can read about Mongo by [link](https://www.mongodb.org/) in more detail. We use Mongo to store our book objects as a json-based documents.
 
 Related code parts:
 
@@ -93,21 +93,21 @@ This feature is used for fast full text search through all books stored in the s
 
 Code parts:
 
- * ```book-search.js``` file with Search object. This object has methods related working with elasticsearch. These are - create, update index and search through it.
+ * ```book-search.js``` file with Search object. This object has methods related to work with elasticsearch. 
 
 ### extjs
 
-Basically user interface of our application is build using `Sencha Ext JS` project. Use [link](http://www.sencha.com/products/extjs/)  to learn more about this library.
+Basic UI of our application is built up using `Sencha Ext JS` project. Check this [link](http://www.sencha.com/products/extjs/)  to learn more about this library.
 Main concept of using extjs is to build one page rich web application.
 
 Related code parts:
 
-* ```public/app``` folder and ```public/app.js``` file hold all files with extjs code
+* ```public/app``` folder and ```public/app.js``` file contain all the files with extjs code
 * ```public``` folder mapped with our `Application` as a placeholder of static files as well
  
 ### json-validation
 
-We obviously need to validate user's input before processing. On large number of input it can become a mess. Its great to have strict data contract between input and processing backend. Good way to achieve this is usage of  JSON schema based validator.  
+We obviously need to validate user's input before processing. On large number of input it can become a mess. Its great to have strict data contract between input and processing backend. Good way to achieve this is the usage of  JSON schema based validator.  
 Please checkout [json-validator](http://github.com/kriszyp/json-schema) and related [json-schema](http://json-schema.org/) notation.
 
 Related code parts:
@@ -119,16 +119,13 @@ Related code parts:
 
 ### basic authentication
 
-As an example of using authentication and authorization process we opt the basic authentication approach.
-In our **nodejs-sample-task** we created a single User with **name:** *"valid"* and **password:** *"user"*.
+As an example of  authentication and authorization process usage we've selected the basic authentication approach.
+In our **nodejs-sample-task** we check for a single user's credentials with **name:** *"valid"* and **password:** *"user"*.
 
 Related code parts:
 
- * ```index.html``` was renamed to ```secret.html```
- * it is created new ```index.html``` file
- * ```Application``` object was changed to suit basic auth
- * client code files ```List.js``` and ```BookController.js``` was changed
- * it was extended tests as well
+ * ```Application``` from ```app.js```. Look for authInit and protectWithAuth functions
+ * Explore related tests
 
 ## Changelog
 
@@ -138,8 +135,8 @@ Related code parts:
 
 ### 2014/03/07
 
- * json-validation
- * basic auth 
+ * added json-validation feature
+ * added basic auth feature  
  
 ## Team
 Thanks to everyone who contributed to this sample application:
