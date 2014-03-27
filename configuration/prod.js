@@ -1,4 +1,3 @@
-
 /**
  * generate mongo parameters
  * @returns {{dbName: string, host: string, port: number, username: string, password: string}}
@@ -77,6 +76,11 @@ var configuration = {
     },
     cookieParser: {
         secret: 'shhhh, very secret'
+    },
+    https: {
+        port: process.env.HTTPSPORT,
+        key: 'certificates/https/server.key',
+        cert: 'certificates/https/server.crt'
     }
 };
 
