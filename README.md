@@ -152,7 +152,7 @@ Every web application should receive and send personal user information in most 
 User sends their credentials, book content can be secure and so on.
 That is why we have implemented new feature - https server.
 
-Please look at this (heriku article)[https://devcenter.heroku.com/articles/ssl-endpoint] how to aquire ssl sertificate. With our app we were going through detailed instructions of this article.
+Please look at this [heroku article](https://devcenter.heroku.com/articles/ssl-endpoint) how to aquire ssl sertificate. With our app we were going through detailed instructions of this article.
 
 Related code parts:
 
