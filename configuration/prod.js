@@ -80,11 +80,7 @@ var configuration = {
     cookieParser: {
         secret: 'shhhh, very secret'
     },
-    https: {
-        port: process.env.HTTPSPORT,
-        key: 'certificates/https/server.key',
-        cert: 'certificates/https/server.crt'
-    }
+    https: null  //no need to run secure server
 };
 
 module.exports = configuration;
