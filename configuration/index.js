@@ -71,10 +71,22 @@ function getHTTPSConfiguration(env){
     return getConfiguration(env).https;
 }
 
+/**
+ * return configuration Object for session store
+ *
+ * @param {String} [env = 'dev']
+ * @returns {*}
+ */
+function getStoreConfig(env){
+    var mongoConfig = getMongoConfiguration(env);
+    return _.extend({}, mongoConfig, {db: mongoConfig.dbName});
+}
+
 module.exports = {
     getConfiguration: getConfiguration,
     getMongoConfiguration: getMongoConfiguration,
     getElasticConfiguration: getElasticConfiguration,
     getLogConfiguration: getLogConfiguration,
-    getHTTPSConfiguration: getHTTPSConfiguration
+    getHTTPSConfiguration: getHTTPSConfiguration,
+    getStoreConfig: getStoreConfig
 };
