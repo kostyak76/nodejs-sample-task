@@ -1,0 +1,9 @@
+#! /usr/bin/env node
+
+var Application = require('../app'),
+    appInstance = new Application();
+
+appInstance.init(function (err) {
+    appInstance.bindServer();
+    appInstance.bindSecureServerIfNeeded();
+});

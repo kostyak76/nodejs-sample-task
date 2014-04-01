@@ -20,7 +20,8 @@
     },
     "scripts": {
         "test": "DISABLE_LOG=1 NODE_ENV=test mocha --reporter spec --recursive ./tests/",
-        "prestart": "./bin/setup.js"
+        "prestart": "./bin/setup.js",
+        "start": "./bin/server-cluster.js"
     }
 }
 

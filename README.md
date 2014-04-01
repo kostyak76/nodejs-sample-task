@@ -26,7 +26,9 @@ You can see the app instance at [http://http://nodejs-sample-task.logicify.com/]
         - [basic authentication](#basic-authentication)
         - [multi environment configuration](#multi-environment-configuration)
         - [https server](#https-server)
+        - [cluster mode](#cluster-mode)
     - [Changelog](#changelog)
+        - [2014/04/02](#20140402)
         - [2014/03/28](#20140328)
         - [2014/03/27](#20140327)
         - [2014/03/26](#20140326)
@@ -163,7 +165,24 @@ Related code parts:
  * added secure server in ```Application``` object, have made auto redirection to secure entry point
  * added new record to start script ```server.js```
 
+### cluster mode
+
+As mentioned on official [nodejs api page](http://nodejs.org/api/cluster.html): 
+**A single instance of Node runs in a single thread. To take advantage of multi-core systems the user will sometimes want to launch a cluster of Node processes to handle the load.**
+
+It seems reasonable for us. So with this change we have added new run mode for our application - *cluster run mode*.
+
+Related code parts:
+
+* ```server.js``` file has been moved to ```/bin/server-single.js``` and has been modified to run as a bash script. You can run it with typing ```./bin/server-single.js``` from your console
+* ```/bin/server-cluster.js``` file runs our application in cluster mode. You can run it with typing ```./bin/server-single.js``` from your console.
+* ```package.json``` changed. So you can run application in new mode with ```npm start``` command
+
 ## Changelog
+
+### 2014/04/02
+
+ * added possibility to run server in cluster mode
 
 ### 2014/03/28
 
