@@ -1,4 +1,4 @@
-var BookProvider = require('./book-data-provider.js').BookProvider,
+var BookProvider = require('../lib/dbFactory').get('book-data-provider'),
     Search = require('./book-search.js').Search,
     LOG = require('../lib/log.js'),
     async = require("async");    
@@ -40,18 +40,19 @@ function BookRestApi() {
      */
     this.newBook = function (req, res) {
 
-        async.waterfall([
-            async.apply(bookProvider.save.bind(bookProvider), req.body),
-            searchProvider.index.bind(searchProvider)
-        ], function (err, data) {
+        async.auto({
+            "inDb": async.apply(bookProvider.save.bind(bookProvider), req.body),
+            "inSearch": ["inDb", function(cb, results){
+                searchProvider.index(results.inDb, cb);
+            }]
+    }, function (err, results) {
             if (err) {
                 LOG('Error saving book: ' + err);
                 res.send(500, 'Error saving book!');
                 return;
             }
-            var message = JSON.stringify(data);
-            LOG(message);
-            res.send(message);
+            var newData = {data: results.inDb, success: true};
+            res.send(newData);
         });
     };
 
@@ -102,9 +103,9 @@ function BookRestApi() {
     this.update = function (req, res) {
 
         async.auto({
-            "inMongo": async.apply(bookProvider.update.bind(bookProvider), req.body),
-            "inSearch": ["inMongo", function (cb, results) {
-                searchProvider.update(results.inMongo, cb);
+            "inDb": async.apply(bookProvider.update.bind(bookProvider), req.body),
+            "inSearch": ["inDb", function (cb, results) {
+                searchProvider.update(results.inDb, cb);
             }]
         }, function (err, results) {
             if (err) {
@@ -112,7 +113,7 @@ function BookRestApi() {
                 return;
             }
             LOG(JSON.stringify(results.inSearch));
-            res.send(results.inMongo);
+            res.send({data: results.inDb, success: true});
         });
     };
 }

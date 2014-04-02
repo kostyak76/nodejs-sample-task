@@ -1,15 +1,24 @@
 //this is the default configuration
 
 var defaultPort = 3000;
-
-var configuration = {
-    port: process.env.PORT || defaultPort,
-    host: 'localhost',
+var dbs = {
     mongo: {
+        dbType: "mongo",
         dbName: "nodejs-mongo-sample",
         host: "localhost",
         port: 27017
     },
+    postgres: {
+        dbType: "postgres",
+        connectUrl: "postgres://postgres:postgres@localhost:5432/node-sample-task"
+    }
+};
+
+var configuration = {
+    port: process.env.PORT || defaultPort,
+    host: 'localhost',
+    db: dbs.postgres,
+    sessionStore: dbs.mongo,
     elastic: {
         host: "localhost",
         port: 9200

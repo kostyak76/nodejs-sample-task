@@ -10,7 +10,9 @@
         "async": "*",
         "json-schema": "0.2.*",
         "underscore": "1.6.0",
-        "connect-mongo": "0.4.*"
+        "connect-mongo": "0.4.*",
+        "sequelize": "1.7.*",
+        "pg": "2.11.*"
     },
     "devDependencies": {
         "mocha": "1.7.0",

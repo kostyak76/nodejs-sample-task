@@ -6,8 +6,9 @@ var Db = require('mongodb').Db,
     Server = require('mongodb').Server,
     BSON = require('mongodb').BSON,
     ObjectID = require('mongodb').ObjectID,
-    LOG = require('../lib/log.js'),
-    config = require("../configuration").getMongoConfiguration();
+    LOG = require('../../lib/log.js'),
+    config = require("../../configuration").getDbConfiguration(),
+    BookDataProvider = require('./provider');
 
 /**
  * Data provier for books (mongo).
@@ -15,18 +16,15 @@ var Db = require('mongodb').Db,
  * by heroku.
  *
  * @constructor
+ * @implements {BookDataProvider}
  */
 BookProvider = function () {
 };
 
 /**
- * create connection to database
- *
- * $this {BookProvider}
- * @param {Function} cb Callback function
+ * @inheritDoc
  */
 BookProvider.prototype.init = function (cb) {
-    //TODO: generify it to support other data providers.
     this.db = new Db(config.dbName, new Server(config.host, config.port, {auto_reconnect: true}), {safe: true});
     this.db.open(function (err, db) {
         if (err) {
@@ -47,40 +45,38 @@ BookProvider.prototype.init = function (cb) {
 
 /**
  * select `book` collection
- *
  * @this {BookProvider}
- * @param {Function} callback Callback function
+ * @param {Function} cb Callback function
  */
-BookProvider.prototype.getCollection = function (callback) {
+BookProvider.prototype.getCollection = function (cb) {
     this.db.collection('books', function (error, collection) {
-        if (error) callback(error);
-        else callback(null, collection);
+        if (error) cb(error);
+        else cb(null, collection);
     });
 };
 
-BookProvider.prototype.findAll = function (callback) {
+/**
+ * @inheritDoc
+ */
+BookProvider.prototype.findAll = function (cb) {
     this.getCollection(function (error, article) {
-        if (error) callback(error)
+        if (error) cb(error)
         else {
             article.find().toArray(function (error, results) {
-                if (error) callback(error)
-                else callback(null, results)
+                if (error) cb(error)
+                else cb(null, results)
             });
         }
     });
 };
 
 /**
- * save book into the database
- *
- * @this {BookProvider}
- * @param {bookModel} book Book object to save in the database
- * @param callback
+ * @inheritDoc
  */
-BookProvider.prototype.save = function (book, callback) {
+BookProvider.prototype.save = function (book, cb) {
     this.getCollection(function (error, collection) {
         if (error) {
-            callback(error);
+            cb(error);
         } else {
             book.inserted_at = new Date();
 
@@ -91,7 +87,7 @@ BookProvider.prototype.save = function (book, callback) {
                 book.Tags[j].inserted_at = new Date();
             }
             collection.insert(book, function () {
-                callback(null, book);
+                cb(null, book);
             });
         }
     });
@@ -99,16 +95,12 @@ BookProvider.prototype.save = function (book, callback) {
 
 
 /**
- * find Array of book objects by specified Array of id
- *
- * @this {BookProvider}
- * @param {Array.<ObjectID>} ids Array of id to look for
- * @param {Function} callback Callback function
+ * @inheritDoc
  */
-BookProvider.prototype.findByIds = function (ids, callback) {
+BookProvider.prototype.findByIds = function (ids, cb) {
     this.getCollection(function (error, collection) {
         if (error) {
-            callback(error);
+            cb(error);
         } else {
             var objectIds = ids.map(function (id) {
                 return ObjectID.createFromHexString(id);
@@ -119,7 +111,7 @@ BookProvider.prototype.findByIds = function (ids, callback) {
                 }
             };
             collection.find(mongoDbQuery).toArray(function (err, docs) {
-                callback(err, docs);
+                cb(err, docs);
             });
         }
     })
@@ -127,16 +119,12 @@ BookProvider.prototype.findByIds = function (ids, callback) {
 
 
 /**
- * update book in the database
- *
- * @this {BookProvider}
- * @param {bookModel} bookUpdate Book object to update
- * @param {Function} callback Callback function
+ * @inheritDoc
  */
-BookProvider.prototype.update = function (bookUpdate, callback) {
+BookProvider.prototype.update = function (bookUpdate, cb) {
     this.getCollection(function (error, collection) {
         if (error) {
-            callback(error)
+            cb(error)
         }
         else {
             var id = bookUpdate._id;
@@ -150,14 +138,14 @@ BookProvider.prototype.update = function (bookUpdate, callback) {
                 function (err, updated) {
                     if (err) {
                         LOG("Book not updated.");
-                        callback(err);
+                        cb(err);
                     }
                     else {
-                        callback(err, updated);
+                        cb(err, updated);
                     }
                 });
         }
     });
 };
 
-exports.BookProvider = new BookProvider();
+module.exports = new BookProvider();

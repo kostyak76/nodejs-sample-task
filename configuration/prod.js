@@ -3,8 +3,9 @@
  * @returns {{dbName: string, host: string, port: number, username: string, password: string}}
  * @private
  */
-function _getMongoParameters() {
+function _getDbParameters() {
     var parameters = {
+        dbType: "mongo",
         dbName: "",
         host: "",
         port: null,
@@ -70,7 +71,8 @@ function _getLogParameters() {
 var configuration = {
     port: process.env.PORT,
     host: 'node-sample-task.herokuapp.com',
-    mongo: _getMongoParameters(),
+    db: _getDbParameters(),
+    sessionStore: _getDbParameters(),
     elastic: _getElasticParameters(),
     log: _getLogParameters(),
     session: {

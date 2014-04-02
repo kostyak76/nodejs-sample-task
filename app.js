@@ -4,7 +4,7 @@
 var express = require('express'),
     async = require('async'),
     Search = require('./book/book-search.js').Search,
-    DataProvider = require('./book/book-data-provider.js').BookProvider,
+    DataProvider = require('./lib/dbFactory').get('book-data-provider'),
     LOG = require('./lib/log.js'),
     _config = require('./configuration'),
     config = _config.getConfiguration(),

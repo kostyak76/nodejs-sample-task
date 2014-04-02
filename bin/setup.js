@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-var bookProvider = require("../book/book-data-provider").BookProvider,
+var bookProvider = require("../lib/dbFactory").get('book-data-provider'),
     Search = require("../book/book-search").Search,
     async = require("async"),
     _ = require("underscore"),

@@ -2,7 +2,7 @@
 This is a sample application, providing a bookstorage-like functionality over the web, in order to
 showcase and expose technical stack and techniquest to be used on larger projects.
 
-Sample task for nodejs, extjs, mongodb, elasticSearch. The app is ready to be deployed to the Heroku
+Sample task for nodejs, extjs, mongodb, postgresql, elasticSearch. The app is ready to be deployed to the Heroku
 cloud hosting, however may also be easily ran locally.
 
 Created and maintained by Logicify [http://logicify.com](http://logicify.com). We use it also as a kickstarter
@@ -26,7 +26,9 @@ You can see the app instance at [http://http://nodejs-sample-task.logicify.com/]
         - [basic authentication](#basic-authentication)
         - [multi environment configuration](#multi-environment-configuration)
         - [https server](#https-server)
+        - [database provider](#database-provider)
     - [Changelog](#changelog)
+        - [2014/04/04](#20140404)
         - [2014/03/28](#20140328)
         - [2014/03/27](#20140327)
         - [2014/03/26](#20140326)
@@ -89,7 +91,7 @@ It is very powerful document database. You can read about Mongo by [link](https:
 
 Related code parts:
 
- * ```book-data-provider.js``` encapsulates all methods related to work with mongo
+ * ```book-data-provider/mongo-provider.js``` encapsulates all methods related to work with mongo
 
 ### elasticsearch
 
@@ -163,7 +165,26 @@ Related code parts:
  * added secure server in ```Application``` object, have made auto redirection to secure entry point
  * added new record to start script ```server.js```
 
+### database provider
+
+The next task we have planed to fulfill was *generify it to support other data providers*.
+And now we have done it. We created database factory, we created provider interface and we extended list of book data providers with postgres data provider.
+
+To change database type in use - simply change this in the configuration.
+
+Related code parts:
+
+* ```/book/book-data-provider/provider.js``` - new file with book data provider interface,
+* ```/book/book-data-provider/mongo-provider.js``` is renamed our old mongo data provider
+* ```/book/book-data-provider/postgres-provider.js``` new book data provider to work with postgresql
+* ```/lib/dbFactory.js``` is database factory
+* some minor changes in the configuration as well
+
 ## Changelog
+
+### 2014/04/04
+
+ * added database factory with database provider
 
 ### 2014/03/28
 

@@ -16,7 +16,8 @@ Ext.define('ExtJsSample.store.BookStore', {
         },
         reader: {
             type: 'json',
-            readRecordsOnFailure: false
+            readRecordsOnFailure: false,
+            root: 'data'
         },
         writer: {
             type: 'json',

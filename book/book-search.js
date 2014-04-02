@@ -67,7 +67,7 @@ Search.prototype.init = function (cb) {
 Search.prototype.index = function (book, cb) {
 
     this.elasticSearchClient
-        .index(NAMES.INDEX, NAMES.TYPE, mapBookToSearchFormat(book), book._id.toHexString(), {}, cb)
+        .index(NAMES.INDEX, NAMES.TYPE, mapBookToSearchFormat(book), book._id.toString(), {}, cb)
         .on('data', function (data) {
             var parsedData = JSON.parse(data);
             cb(parsedData.error, data);

@@ -6,7 +6,7 @@ describe("ElasticSearchClient Cluster apis", function () {
 
     var searchProvider;
     var FakeIndex = function(id){
-        this.toHexString = function(){
+        this.toString = function(){
             return id;
         }
     };

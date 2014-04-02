@@ -38,13 +38,13 @@ function getConfiguration(env){
 }
 
 /**
- * return configuration Object for mongo
+ * return configuration Object for db
  *
  * @param {String} env [env = 'dev']
  * @returns {*}
  */
-function getMongoConfiguration(env){
-    return getConfiguration(env).mongo;
+function getDbConfiguration(env){
+    return getConfiguration(env).db;
 }
 
 /**
@@ -78,13 +78,13 @@ function getHTTPSConfiguration(env){
  * @returns {*}
  */
 function getStoreConfig(env){
-    var mongoConfig = getMongoConfiguration(env);
+    var mongoConfig = getConfiguration(env).sessionStore;
     return _.extend({}, mongoConfig, {db: mongoConfig.dbName});
 }
 
 module.exports = {
     getConfiguration: getConfiguration,
-    getMongoConfiguration: getMongoConfiguration,
+    getDbConfiguration: getDbConfiguration,
     getElasticConfiguration: getElasticConfiguration,
     getLogConfiguration: getLogConfiguration,
     getHTTPSConfiguration: getHTTPSConfiguration,
